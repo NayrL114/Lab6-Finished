@@ -1,23 +1,16 @@
 //
-//  HighScoreViewController.swift
+//  GameViewController.swift
 //  Lab5-Timer
 //
-//  Created by Hayden Fang on 14/4/2023.
+//  Created by Pan Li on 18/4/2023.
 //
 
 import UIKit
 
-class HighScoreViewController: UIViewController {
+class GameViewController: UIViewController {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // At this stage, calling DataStore will cause the app to crash
-        //nameLabel.text = DataStore.shared.name
-        //scoreLabel.text = DataStore.shared.score
 
         // Do any additional setup after loading the view.
     }

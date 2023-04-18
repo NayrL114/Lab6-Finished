@@ -41,8 +41,11 @@ class ViewController: UIViewController {
                 self.timeLabel.text = String(self.time)
                 if self.time == 0 {
                     // we want to save the name & score to somethere
-                    DataStore.shared.name = self.nameLabel.text ?? ""
-                    DataStore.shared.score = self.scoreLabel.text ?? ""
+                    
+                    // At this stage, calling DataStore will cause the app to crash
+                    //DataStore.shared.name = self.nameLabel.text ?? ""
+                    //DataStore.shared.score = self.scoreLabel.text ?? "00"
+                    
                     timer.invalidate()
                 }
             })
