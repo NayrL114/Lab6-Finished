@@ -46,6 +46,9 @@ class ViewController: UIViewController {
                     //DataStore.shared.name = self.nameLabel.text ?? ""
                     //DataStore.shared.score = self.scoreLabel.text ?? "00"
                     
+                    DataStore.shared.players.append(PlayerData(name: self.nameLabel.text ?? "", score: self.scoreLabel.text ?? ""))
+                    DataStore.shared.players.sort {$0.score > $1.score}
+                    
                     timer.invalidate()
                 }
             })
