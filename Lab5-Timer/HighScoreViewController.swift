@@ -9,22 +9,29 @@ import UIKit
 
 class HighScoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let KEY_GAME_RESULT = "gameResult"
+    //var gameResultArray: [PlayerData] = []
+    
     let nameTag = 100
-    let scoreTag = 101
+    let scoreTag = 101    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataStore.shared.players.count
+        //return DataStore.shared.players.count
+        return readGameResults().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell", for: indexPath)
         
-        let player = DataStore.shared.players[indexPath.row]
-                
+        let gameResultArray = readGameResults()
+        let player = gameResultArray[indexPath.row]
+        
+//        let player = DataStore.shared.players[indexPath.row]
+
         if let nameLabel = cell.viewWithTag(nameTag) as? UILabel{
             nameLabel.text = player.name
         }
-              
+
         if let scoreLabel = cell.viewWithTag(scoreTag) as? UILabel{
             scoreLabel.text = player.score
         }
@@ -41,6 +48,12 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //gameResultArray = readGameResults()
+        //print(gameResultArray[0].name)
+//        if (gameResultArray.count != 0){
+//            // retrieve the current high score from gameResultArray[0] and put it out on view
+//        }
+        
         highScoreTableView.delegate = self
         highScoreTableView.dataSource = self
         
@@ -49,6 +62,36 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         //scoreLabel.text = DataStore.shared.score
 
         // Do any additional setup after loading the view.
+    }
+    
+//    func saveGameResults(){
+//        let defaults = UserDefaults.standard
+//        defaults.set(self.gameResultArray, forKey: KEY_GAME_RESULT)
+//    }
+    
+//    func readGameResults() -> [PlayerData] {
+//        let defaults = UserDefaults.standard
+//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+//            return []
+//        }
+//        return array
+//    }
+    
+    func readGameResults() -> [PlayerData] {
+        let defaults = UserDefaults.standard
+//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+//            return []
+//        }
+        if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
+            if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
+                return array
+            } else {
+                return []
+            }
+        } else {
+            return []
+        }
+        //return array
     }
     
 

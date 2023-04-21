@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct PlayerData{
-    let name: String
-    let score: String
-}
+//struct PlayerData{
+//    let name: String
+//    let score: String
+//}
 
 class DataStore {
     var name: String = ""
