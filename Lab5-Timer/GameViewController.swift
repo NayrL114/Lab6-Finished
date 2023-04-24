@@ -30,7 +30,10 @@ class GameViewController: UIViewController {
         gameResultArray = readGameResults()
         if (gameResultArray.count != 0){
             // retrieve the current high score from gameResultArray[0] and put it out on view
+            print(gameResultArray)
         }
+        
+        time = Int(playerTimeLabel.text!)!
         
         startGame()
 
@@ -43,7 +46,8 @@ class GameViewController: UIViewController {
             self.playerTimeLabel.text = String(self.time)
             if self.time == -1 {
                 
-                self.gameResultArray.append(PlayerData(name: self.playerNameLabel.text ?? "", score: self.playerScoreLabel.text ?? ""))
+                self.gameResultArray.append(PlayerData(name: self.playerNameLabel.text ?? "", score: Int(self.playerScoreLabel.text ?? "0")! ))
+                self.gameResultArray.sort {$0.score > $1.score}
                 self.saveGameResults()
                 
                 // Storing data in DataStore class
@@ -64,15 +68,33 @@ class GameViewController: UIViewController {
     
     func saveGameResults(){
         let defaults = UserDefaults.standard
-        defaults.set(self.gameResultArray, forKey: KEY_GAME_RESULT)
+        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
+        defaults.set(try? PropertyListEncoder().encode(gameResultArray), forKey: KEY_GAME_RESULT)
     }
+    
+//    func readGameResults() -> [PlayerData] {
+//        let defaults = UserDefaults.standard
+//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+//            return []
+//        }
+//        return array
+//    }
     
     func readGameResults() -> [PlayerData] {
         let defaults = UserDefaults.standard
-        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+//            return []
+//        }
+        if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
+            if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
+                return array
+            } else {
+                return []
+            }
+        } else {
             return []
         }
-        return array
+        //return array
     }
     
 

@@ -33,7 +33,7 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         }
 
         if let scoreLabel = cell.viewWithTag(scoreTag) as? UILabel{
-            scoreLabel.text = player.score
+            scoreLabel.text = String(player.score)
         }
                 
         return cell

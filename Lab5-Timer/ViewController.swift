@@ -9,7 +9,7 @@ import UIKit
 
 struct PlayerData: Codable {
     let name: String
-    let score: String
+    let score: Int
 }
 
 class ViewController: UIViewController {
@@ -78,28 +78,28 @@ class ViewController: UIViewController {
              // displaying the bubble button
             testBubbleButton.isHidden = false
             
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                self.time = self.time - 1
-                self.timeLabel.text = String(self.time)
-                if self.time == 0 {
-                    // we want to save the name & score to somethere
-                    
-                    // At this stage, calling DataStore will cause the app to crash
-                    //DataStore.shared.name = self.nameLabel.text ?? ""
-                    //DataStore.shared.score = self.scoreLabel.text ?? "00"
-                    
-                    self.gameResultArray.append(PlayerData(name: self.nameLabel.text ?? "", score: self.scoreLabel.text ?? ""))
-                    print("Before sorting array is \(self.gameResultArray)")
-                    self.gameResultArray.sort {$0.score > $1.score}
-                    print("After sorting array is \(self.gameResultArray)")
-                    self.saveGameResults()
-                    
-//                    DataStore.shared.players.append(PlayerData(name: self.nameLabel.text ?? "", score: self.scoreLabel.text ?? ""))
-//                    DataStore.shared.players.sort {$0.score > $1.score}
-                    
-                    timer.invalidate()
-                }
-            })
+//            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+//                self.time = self.time - 1
+//                self.timeLabel.text = String(self.time)
+//                if self.time == 0 {
+//                    // we want to save the name & score to somethere
+//
+//                    // At this stage, calling DataStore will cause the app to crash
+//                    //DataStore.shared.name = self.nameLabel.text ?? ""
+//                    //DataStore.shared.score = self.scoreLabel.text ?? "00"
+//
+//                    self.gameResultArray.append(PlayerData(name: self.nameLabel.text ?? "", score: self.scoreLabel.text ?? ""))
+//                    print("Before sorting array is \(self.gameResultArray)")
+//                    self.gameResultArray.sort {$0.score > $1.score}
+//                    print("After sorting array is \(self.gameResultArray)")
+//                    self.saveGameResults()
+//
+////                    DataStore.shared.players.append(PlayerData(name: self.nameLabel.text ?? "", score: self.scoreLabel.text ?? ""))
+////                    DataStore.shared.players.sort {$0.score > $1.score}
+//
+//                    timer.invalidate()
+//                }
+//            })// end of timer declaration
         }
     }
     
