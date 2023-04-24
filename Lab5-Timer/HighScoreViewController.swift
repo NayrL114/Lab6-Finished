@@ -94,7 +94,39 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         //return array
     }
     
-
+    func clearGameResults() {
+        let defaults = UserDefaults.standard
+        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
+        let emptyArray: [PlayerData] = []
+        defaults.set(try? PropertyListEncoder().encode(emptyArray), forKey: KEY_GAME_RESULT)
+    }
+    
+//    func saveGameResults(){
+//        let defaults = UserDefaults.standard
+//        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
+//        defaults.set(try? PropertyListEncoder().encode(gameResultArray), forKey: KEY_GAME_RESULT)
+//    }
+    
+    @IBAction func clearDataButtonPressed(_ sender: UIButton) {
+        // Create Alert
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this?", preferredStyle: .alert)
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            self.clearGameResults()
+            // Update UI here to make the table display with empty results
+        })
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        //Add OK and Cancel button to an Alert object
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        // Present alert message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

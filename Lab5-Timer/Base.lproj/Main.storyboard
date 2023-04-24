@@ -43,7 +43,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="playButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ViV-Xk-80c"/>
-                                    <segue destination="ba6-2V-12y" kind="show" id="q81-YM-LQy"/>
+                                    <segue destination="ba6-2V-12y" kind="show" identifier="goToGame" id="q81-YM-LQy"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Aq-1k-6YJ">
@@ -372,7 +372,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LeL-lr-YhL">
-                                <rect key="frame" x="0.0" y="166" width="393" height="652"/>
+                                <rect key="frame" x="0.0" y="166" width="393" height="590"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreCell" id="PrB-ps-z5l">
@@ -401,16 +401,31 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACp-XQ-aBp">
+                                <rect key="frame" x="96.666666666666686" y="775" width="200" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Iis-fd-brC"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Clear High Score Data"/>
+                                <connections>
+                                    <action selector="clearDataButtonPressed:" destination="P08-Gt-F0m" eventType="touchUpInside" id="W7c-ZF-Nkg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0y4-Sl-7rq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LeL-lr-YhL" firstAttribute="bottom" secondItem="0y4-Sl-7rq" secondAttribute="bottom" id="2FJ-lx-wKE"/>
                             <constraint firstItem="cVX-gK-LjD" firstAttribute="centerX" secondItem="0y4-Sl-7rq" secondAttribute="centerX" id="4F3-GJ-3rx"/>
-                            <constraint firstItem="LeL-lr-YhL" firstAttribute="leading" secondItem="0y4-Sl-7rq" secondAttribute="leading" id="PZU-o0-jZt"/>
-                            <constraint firstItem="LeL-lr-YhL" firstAttribute="top" secondItem="cVX-gK-LjD" secondAttribute="bottom" constant="8" symbolic="YES" id="VlJ-Bv-Bug"/>
+                            <constraint firstItem="ACp-XQ-aBp" firstAttribute="centerX" secondItem="0y4-Sl-7rq" secondAttribute="centerX" id="LmN-db-EdZ"/>
+                            <constraint firstItem="ACp-XQ-aBp" firstAttribute="top" secondItem="LeL-lr-YhL" secondAttribute="bottom" constant="19" id="Oee-uR-Azr"/>
                             <constraint firstItem="cVX-gK-LjD" firstAttribute="top" secondItem="0y4-Sl-7rq" secondAttribute="top" id="dRV-oA-Cp5"/>
-                            <constraint firstItem="LeL-lr-YhL" firstAttribute="trailing" secondItem="0y4-Sl-7rq" secondAttribute="trailing" id="eeD-WM-LOK"/>
+                            <constraint firstItem="LeL-lr-YhL" firstAttribute="trailing" secondItem="0y4-Sl-7rq" secondAttribute="trailing" id="dTI-h7-ZJG"/>
+                            <constraint firstItem="LeL-lr-YhL" firstAttribute="leading" secondItem="0y4-Sl-7rq" secondAttribute="leading" id="iEd-OF-nNv"/>
+                            <constraint firstItem="ACp-XQ-aBp" firstAttribute="top" secondItem="LeL-lr-YhL" secondAttribute="bottom" constant="19" id="nUB-T4-Rpq"/>
+                            <constraint firstItem="0y4-Sl-7rq" firstAttribute="bottom" secondItem="ACp-XQ-aBp" secondAttribute="bottom" constant="8" id="pwG-pq-qz9"/>
+                            <constraint firstItem="LeL-lr-YhL" firstAttribute="top" secondItem="cVX-gK-LjD" secondAttribute="bottom" constant="8" symbolic="YES" id="s1F-Sj-HwH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QvT-u9-tzT"/>
@@ -601,6 +616,9 @@
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

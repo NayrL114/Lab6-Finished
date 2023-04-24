@@ -11,6 +11,7 @@ class GameViewController: UIViewController {
     
     var timer = Timer()
     var time: Int = 0
+    var name: String = ""
     
     let KEY_GAME_RESULT = "gameResult"
     var gameResultArray: [PlayerData] = []
@@ -30,10 +31,13 @@ class GameViewController: UIViewController {
         gameResultArray = readGameResults()
         if (gameResultArray.count != 0){
             // retrieve the current high score from gameResultArray[0] and put it out on view
-            print(gameResultArray)
+            //print(gameResultArray)
         }
         
-        time = Int(playerTimeLabel.text!)!
+        //time = Int(playerTimeLabel.text!)!
+        //print(time)
+        playerTimeLabel.text = String(time)
+        playerNameLabel.text = name
         
         startGame()
 
@@ -95,6 +99,10 @@ class GameViewController: UIViewController {
             return []
         }
         //return array
+    }
+    
+    func setTime(passedTime: Int){
+        time = passedTime
     }
     
 
