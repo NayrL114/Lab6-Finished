@@ -50,9 +50,15 @@ class GameViewController: UIViewController {
             self.playerTimeLabel.text = String(self.time)
             if self.time == -1 {
                 
-                self.gameResultArray.append(PlayerData(name: self.playerNameLabel.text ?? "", score: Int(self.playerScoreLabel.text ?? "0")! ))
-                self.gameResultArray.sort {$0.score > $1.score}
-                self.saveGameResults()
+//                self.gameResultArray.append(PlayerData(name: self.playerNameLabel.text ?? "", score: Int(self.playerScoreLabel.text ?? "0")! ))
+//                self.gameResultArray.sort {$0.score > $1.score}
+                
+                DataStore.shared.currentPlayerName = self.name
+                DataStore.shared.currentPlayerScore = Int(self.playerScoreLabel.text ?? "0")!
+                DataStore.shared.currentPlayerTime = self.time
+                DataStore.shared.storedResults = self.gameResultArray
+                
+                //self.saveGameResults()
                 
                 // Below code goes to game view
                 let GameEndViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameEndViewController") as! GameEndViewController

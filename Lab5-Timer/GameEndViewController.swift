@@ -21,6 +21,25 @@ class GameEndViewController: UIViewController {
         super.viewDidLoad()
         
         congratMsg.isHidden = true
+        
+        playerNameLabel.text = DataStore.shared.currentPlayerName
+        playerScoreLabel.text = String(DataStore.shared.currentPlayerScore)
+        
+        //print(DataStore.shared.storedResults)
+        if (DataStore.shared.getStoredArraySize() > 0){// ensuring the array in DataStore is not empty
+            historyNameLabel.text = DataStore.shared.storedResults[0].name
+            historyScoreLabel.text = String(DataStore.shared.storedResults[0].score)
+        }
+        else{
+            historyNameLabel.text = "N/A"
+            historyScoreLabel.isHidden = true
+        }
+                
+        if (DataStore.shared.compareWithStoredHighScore() == true) {
+            congratMsg.isHidden = false
+        }
+        
+        DataStore.shared.saveGameResults()
 
         // Do any additional setup after loading the view.
     }
