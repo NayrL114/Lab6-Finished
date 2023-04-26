@@ -108,12 +108,17 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
 //    }
     
     @IBAction func clearDataButtonPressed(_ sender: UIButton) {
+        // Following code for creating alert window is from an online tutorial,
+        // Link: www.appsdeveloperblog.com/how-to-show-an-alert-in-swift
+        
         // Create Alert
         let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this?", preferredStyle: .alert)
         // Create OK button with action handler
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
             print("Ok button tapped")
             self.clearGameResults()
+            // Go back to previous screen, which should be the main menu in current context
+            self.navigationController?.popViewController(animated: true)
             // Update UI here to make the table display with empty results
         })
         // Create Cancel button with action handlder

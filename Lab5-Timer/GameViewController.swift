@@ -54,11 +54,20 @@ class GameViewController: UIViewController {
                 self.gameResultArray.sort {$0.score > $1.score}
                 self.saveGameResults()
                 
+                // Below code goes to game view
+                let GameEndViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameEndViewController") as! GameEndViewController
+                self.navigationController?.pushViewController(GameEndViewController, animated: true)
+                
                 // Storing data in DataStore class
 //                DataStore.shared.players.append(PlayerData(name: self.playerNameLabel.text ?? "", score: self.playerScoreLabel.text ?? ""))
 //                DataStore.shared.players.sort {$0.score > $1.score}
                 
+                //self.navigationController?.popToRootViewController(animated: true)
+                
                 timer.invalidate()
+                
+                
+                
             }
         })
     }

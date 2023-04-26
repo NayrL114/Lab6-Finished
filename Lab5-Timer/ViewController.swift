@@ -52,9 +52,12 @@ class ViewController: UIViewController {
             // update view elements with game settings stored in UserDefault
             gameTimeSlider.value = Float(gameSettingsArray[0])
             gameBubbleSlider.value = Float(gameSettingsArray[1])
-            gameTimeSliderLabel.text = "\(Int(gameTimeSlider.value)) Seconds"
-            gameBubbleSliderLabel.text = "\(Int(gameBubbleSlider.value)) Bubbles"
+//            gameTimeSliderLabel.text = "\(Int(gameTimeSlider.value)) Seconds"
+//            gameBubbleSliderLabel.text = "\(Int(gameBubbleSlider.value)) Bubbles"
         }
+        
+        gameTimeSliderLabel.text = "\(Int(gameTimeSlider.value)) Seconds"
+        gameBubbleSliderLabel.text = "\(Int(gameBubbleSlider.value)) Bubbles"
         //print(Int(gameSettingsArray[0]))
         
     }

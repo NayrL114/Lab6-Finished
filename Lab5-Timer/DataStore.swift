@@ -14,7 +14,7 @@ import Foundation
 
 class DataStore {
     var name: String = ""
-    var score: String = "0"
+    var score: Int = 0
     
     var players: [PlayerData] = []
     
