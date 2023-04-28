@@ -64,23 +64,6 @@ class GameEndViewController: UIViewController, UITableViewDataSource, UITableVie
         playerScoreLabel.text = String(DataStore.shared.currentPlayerScore)
         playerTimeLabel.text = String(DataStore.shared.currentPlayerTime)
         
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-//            label.center = CGPoint(x: 160, y: 285)
-//            label.textAlignment = .center
-//            label.text = "I'm a test label"
-//
-//            self.view.addSubview(label)
-        
-        //print(DataStore.shared.storedResults)
-//        if (DataStore.shared.getStoredArraySize() > 0){// ensuring the array in DataStore is not empty
-//            historyNameLabel.text = DataStore.shared.storedResults[0].name
-//            historyScoreLabel.text = String(DataStore.shared.storedResults[0].score)
-//        }
-//        else{
-//            historyNameLabel.text = "N/A"
-//            historyScoreLabel.isHidden = true
-//        }
-        
         print("before")
         print(DataStore.shared.storedResults)
                 

@@ -22,6 +22,7 @@ class CountDownViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    // display a new screen for 3 seconds countdown
     func startCountDown() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             self.countdown = self.countdown - 1

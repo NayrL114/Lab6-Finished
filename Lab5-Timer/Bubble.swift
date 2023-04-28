@@ -57,32 +57,11 @@ class Bubble: UIButton {
     var colour: BubbleColour?
     var bubbleID: Int?
     
-    var isClicked = false
-    var gameViewController: ViewController?
-    
     var distanceToScreenBound: Int = 60
     
     var configuredMaxBubbleNo: Int = DataStore.shared.configuredMaxBubbleNumber
     
-    //var bubbleStore: [Bubble] = []
-    
-//    let xPosition = Int.random(in: 60...340)
-//    let yPosition = Int.random(in: 260...740)
-    
     let yTopConstraint: Int
-    
-//    let xPosition = Int.random(in: 60...Int(UIScreen.main.bounds.width) - 60)
-//    let yPosition = Int.random(in: yTopConstraint...Int(UIScreen.main.bounds.height) - 60)
-    
-//    override init(frame: CGRect, ID: Int) {
-////        self.score = 1
-////        self.colour = .Red
-//        self.bubbleID = ID
-//        super.init(frame: frame)
-//        self.backgroundColor = .red
-//        self.frame = CGRect(x: xPosition, y: yPosition, width: 50, height: 50)
-//        self.layer.cornerRadius = 0.5 * self.bounds.size.width
-//    }
     
     init(colour: BubbleColour, ID: Int, yCon: Int) {
         self.colour = colour
@@ -90,6 +69,7 @@ class Bubble: UIButton {
         self.bubbleID = ID
         self.yTopConstraint = yCon
         
+        // dynamically allocate area for bubble generation
         // var distanceToScreenBound: Int = 60
         let xPosition = Int.random(in: distanceToScreenBound...Int(UIScreen.main.bounds.width) - distanceToScreenBound)
         let yPosition = Int.random(in: yTopConstraint + distanceToScreenBound...Int(UIScreen.main.bounds.height) - distanceToScreenBound)
@@ -104,24 +84,10 @@ class Bubble: UIButton {
     }
     
     func removeBubble() {
-        //bubbleStore.remove(self)
-//        if isClicked == true {
-//            self.removeFromSuperview()
-//        }
         self.removeFromSuperview()
-//        for index in 0...bubbleStore.count-1 {
-//            if bubbleStore[index].bubbleID == self.bubbleID {
-//                bubbleStore.remove(at: index)
-//                return
-//            }
-//        }
     }
     
-    func generateBubble() {
-        //let probability = int.random(in: 1...100)
-        
-    }
-    
+    // animatio code from week 7 lab recording
     func animation() {
         let springAnimation = CASpringAnimation(keyPath: "transform.scale")
         springAnimation.duration = 0.6

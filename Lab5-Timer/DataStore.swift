@@ -1,10 +1,3 @@
-//
-//  DataStore.swift
-//  Lab5-Timer
-//
-//  Created by Hayden Fang on 14/4/2023.
-//
-
 import Foundation
 
 struct PlayerData: Codable {
@@ -32,27 +25,21 @@ class DataStore {
     static let shared = DataStore()
     
     private init() {
+        // initialise the result array
         storedResults = readGameResults()
-        //fatalError()
     }
     
-//    func removeRandomBubbles() {
-//        let totalRemoveNumber = Int.random(in: 1...storedBubbles.count)
-//        var counter: Int = 0
-//        while(counter <= totalRemoveNumber){
-//            let removePosition = Int.random(in: 0...storedBubbles.count)
-//            storedBubbles.remove(at: removePosition)
-//        }
-//    }
-    
+    // remove bubble from storedBubble array at desinated location
     func removeBubbleFromArrayAt(position: Int) {
         storedBubbles.remove(at: position)
     }
     
+    // reset the storedBubble array
     func clearStoredBubbleArray() {
         storedBubbles = []
     }
     
+    // compared the high score with passed in score
     func compareWithStoredHighScore() -> Bool {
         guard storedResults.count > 0 else{
             return true
@@ -60,39 +47,32 @@ class DataStore {
         return (currentPlayerScore > storedResults[0].score)
     }
     
+    // append new player's score into stored array
     func storeNewDataIntoHighScore() {
         storedResults.append(PlayerData(name: currentPlayerName, score: currentPlayerScore, time: currentPlayerTime))
     }
     
+    // sort the score array
     func sortStoredHighScore() {
         storedResults.sort { $0.score > $1.score }
     }
     
+    // get the size for score array
     func getStoredArraySize() -> Int {
         return storedResults.count
     }
     
+    // save the result array into user default
     func saveGameResults(){
         storeNewDataIntoHighScore()
         sortStoredHighScore()
         let defaults = UserDefaults.standard
-        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
         defaults.set(try? PropertyListEncoder().encode(storedResults), forKey: KEY_GAME_RESULT)
     }
     
-//    func readGameResults() -> [PlayerData] {
-//        let defaults = UserDefaults.standard
-//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
-//            return []
-//        }
-//        return array
-//    }
-    
+    // retrieve previous result from user default
     func readGameResults() -> [PlayerData] {
         let defaults = UserDefaults.standard
-//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
-//            return []
-//        }
         if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
             if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
                 return array

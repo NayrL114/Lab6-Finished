@@ -6,15 +6,12 @@
 //
 
 import UIKit
-//import Bubble
 
 class GameViewController: UIViewController {
     
     var timer = Timer()
     var time: Int = 0
     var name: String = ""
-    
-    //let bubble = Bubble()
     
     let KEY_GAME_RESULT = "gameResult"
     var gameResultArray: [PlayerData] = []
@@ -36,14 +33,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        //print(playerNameLabel.frame.origin.x) 16
-        //print(playerNameLabel.frame.origin.y) 190
-        
-        //gameResultArray = readGameResults()
         if (DataStore.shared.storedResults.count != 0){
-//            // retrieve the current high score from gameResultArray[0] and put it out on view
-//            //print(gameResultArray)
+            // retrieve the current high score from gameResultArray[0] and put it out on view
             historyHighScoreName.text = DataStore.shared.storedResults[0].name
             historyHighScoreLabel.text = String(DataStore.shared.storedResults[0].score)
             historyHighScoreTime.text = String(DataStore.shared.storedResults[0].time)
@@ -52,16 +43,6 @@ class GameViewController: UIViewController {
             historyHighScoreLabel.text = "0"
             historyHighScoreTime.text = "N/A"
         }
-        
-        //time = Int(playerTimeLabel.text!)!
-        //print(time)
-        
-//        DataStore.shared.clearStoredBubbleArray()
-//        self.totalBubbleNumbers = 0
-//        playerTimeLabel.text = String(time)
-//        playerNameLabel.text = name
-        
-        //DataStore.shared.currentPlayerTime = self.time
         
         self.time = DataStore.shared.currentPlayerTime
         self.name = DataStore.shared.currentPlayerName
@@ -90,32 +71,12 @@ class GameViewController: UIViewController {
             
             if self.countdownTime == 0 {
                 self.startGame()
-                
                 timer.invalidate()
-                
-                
             }
-        })
+        })// end of timer declaration
     }
     
     func startGame() {
-        
-        
-        
-//        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-//            self.countdownTime = self.countdownTime - 1
-//
-//            if self.countdownTime == 0 {
-//                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//                let GameViewController = storyBoard.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
-//                        self.present(GameViewController, animated: false, completion: nil)
-//
-//                timer.invalidate()
-//
-//
-//            }
-//        })
-        
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             self.time = self.time - 1
             self.playerTimeLabel.text = String(self.time)
@@ -125,53 +86,32 @@ class GameViewController: UIViewController {
             self.generateBubble()
             //print("aFTER, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
             
-            
             if self.time == -1 {
                 
-//                self.gameResultArray.append(PlayerData(name: self.playerNameLabel.text ?? "", score: Int(self.playerScoreLabel.text ?? "0")! ))
-//                self.gameResultArray.sort {$0.score > $1.score}
-                
+                // Stored the data into DataStore class for next screen to process
                 DataStore.shared.currentPlayerName = self.name
                 DataStore.shared.currentPlayerScore = Int(self.playerScoreLabel.text ?? "0")!
-//                DataStore.shared.currentPlayerTime = self.time
-                //DataStore.shared.storedResults = self.gameResultArray
-                
-                
-                
-                //self.saveGameResults()
                 
                 // Below code goes to game end view
                 let GameEndViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameEndViewController") as! GameEndViewController
                 self.navigationController?.pushViewController(GameEndViewController, animated: true)
                 
-                // Storing data in DataStore class
-//                DataStore.shared.players.append(PlayerData(name: self.playerNameLabel.text ?? "", score: self.playerScoreLabel.text ?? ""))
-//                DataStore.shared.players.sort {$0.score > $1.score}
-                
-                //self.navigationController?.popToRootViewController(animated: true)
-                
                 timer.invalidate()
                 
-                
             }
-        })
-    }
+        })// end of timer declaration
+    }// end of startGame()
     
     @IBAction func bubbleButtonPressed(_ sender: Bubble) { //Bubble is a subclass of UIButton
         if var score = Int(playerScoreLabel.text ?? "0") {
-            //score = score + 1
             
-            print("sender colour should be \(sender.colour!)")
-            print("previous colour should be \(DataStore.shared.previousColour)")
-            
+            // If two or more bubbles of the same colour are popped in a consecutive sequence,
+            // the bubbles after the first one will get 1.5 times their original game points.
             if sender.colour == DataStore.shared.previousColour {
-                
                 DataStore.shared.streakCounter += 1
-                print("same colour as previous, combo is \(DataStore.shared.streakCounter)")
             } else {
                 DataStore.shared.streakCounter = 0
                 DataStore.shared.previousColour = sender.colour!
-                print("new colour, reset combo back to \(DataStore.shared.streakCounter)")
             }
             
             var multiplier: Double = 1.0
@@ -179,32 +119,28 @@ class GameViewController: UIViewController {
                 multiplier = 1.5
             }
             
-            print("multiplier is \(multiplier)")
-            print("bubble base score is \(sender.score!)")
-            print("This bubble is worth double score \((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter))))")
-            print("After rounding the int score should be \(round((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter)))))")
+//            print("multiplier is \(multiplier)")
+//            print("bubble base score is \(sender.score!)")
+//            print("This bubble is worth double score \((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter))))")
+//            print("After rounding the int score should be \(round((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter)))))")
             
-            //if (DataStore.shared.streakCounter > 0){
-            score = Int(Double(score) + round((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter)))))
-            //} else {
-            //    score = Int(score + sender.score!)
-            //}
-            
+            //score = Int(Double(score) + round((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter)))))
+            score = Int(Double(score) + round((Double(sender.score!) * multiplier)))
             
             playerScoreLabel.text = "\(score)"
             sender.flash()
             sender.removeFromSuperview()
             
+            // Remove this bubble from storedBubble array
             for index in (0...DataStore.shared.storedBubbles.count - 1) {
                 if DataStore.shared.storedBubbles[index].bubbleID == sender.bubbleID {
                     DataStore.shared.removeBubbleFromArrayAt(position: index)
                     totalBubbleNumbers -= 1
-                    //print("Remove, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
                     return
                 }
             }// end of for loop
         }
-    }
+    } // end of bubbleButtonPressed()
     
     func generateBubble(){
         guard totalBubbleNumbers < maxBubbleNumbers else {
@@ -214,7 +150,6 @@ class GameViewController: UIViewController {
         let generateNumberThisTime: Int = Int.random(in: 1...maxBubbleNumbers-totalBubbleNumbers)
         for _ in (1...generateNumberThisTime){
             // generate a new bubble object here, assign colour and id, place in view
-            //bubble = Bubble(colour: .Black, ID: bubbleID)
             
             // This do...while loop should generate non-overlapping bubbles
             var overlapping: Bool
@@ -245,32 +180,18 @@ class GameViewController: UIViewController {
                     bubbleID += 1
                     DataStore.shared.storedBubbles.append(bubble)
                 }
-            } while (overlapping)
-            
-            //let bubble = Bubble()
-            //let bubble = Bubble(colour: Bubble.BubbleColour.Red, ID: bubbleID)
-            
-//            bubble.animation()
-//            //bubble.addTarget(self, action: #selector(bubble.removeBubbleOnClick()), for: .touchUpInside)
-//            bubble.addTarget(self, action: #selector(bubbleButtonPressed), for: .touchUpInside)
-//            self.view.addSubview(bubble)
-//
-//            bubbleID += 1
-//            DataStore.shared.storedBubbles.append(bubble)
-        }
+            } while (overlapping) // if this bubble overlaps, create another one
+        }// end of for loop
         
         totalBubbleNumbers += generateNumberThisTime
         
-//        bubble.animation()
-//        //bubble.addTarget(self, action: #selector(bubble.removeBubbleOnClick()), for: .touchUpInside)
-//        bubble.addTarget(self, action: #selector(bubbleButtonPressed), for: .touchUpInside)
-//        self.view.addSubview(bubble)
     }// end of generateBubble()
             
     func checkBubbleOverlapping(bubble: Bubble) -> Bool {
         guard DataStore.shared.storedBubbles.count > 0 else {
             return false
         }
+        
         for index in (0...DataStore.shared.storedBubbles.count - 1){
             if (CGRectIntersectsRect(bubble.frame, DataStore.shared.storedBubbles[index].frame)) {
                 return true
@@ -279,7 +200,7 @@ class GameViewController: UIViewController {
         return false
     }
     
-    func removeRandomBubbles() {
+    func removeRandomBubbles() { // remove random number of bubbles every second
         guard DataStore.shared.storedBubbles.count > 1 else {
             return
         }
@@ -299,41 +220,6 @@ class GameViewController: UIViewController {
         }
     }
     
-//    func saveGameResults(){
-//        let defaults = UserDefaults.standard
-//        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
-//        defaults.set(try? PropertyListEncoder().encode(gameResultArray), forKey: KEY_GAME_RESULT)
-//    }
-    
-//    func readGameResults() -> [PlayerData] {
-//        let defaults = UserDefaults.standard
-//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
-//            return []
-//        }
-//        return array
-//    }
-    
-//    func readGameResults() -> [PlayerData] {
-//        let defaults = UserDefaults.standard
-////        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
-////            return []
-////        }
-//        if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
-//            if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
-//                return array
-//            } else {
-//                return []
-//            }
-//        } else {
-//            return []
-//        }
-//        //return array
-//    }
-    
-//    func setTime(passedTime: Int){
-//        time = passedTime
-//    }
-    
 
     /*
     // MARK: - Navigation
@@ -345,4 +231,4 @@ class GameViewController: UIViewController {
     }
     */
 
-}
+}// end of class

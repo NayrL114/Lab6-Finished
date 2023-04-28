@@ -1,10 +1,3 @@
-//
-//  HighScoreViewController.swift
-//  Lab5-Timer
-//
-//  Created by Hayden Fang on 14/4/2023.
-//
-
 import UIKit
 
 class HighScoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -53,52 +46,13 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //gameResultArray = readGameResults()
-        //print(gameResultArray[0].name)
-//        if (gameResultArray.count != 0){
-//            // retrieve the current high score from gameResultArray[0] and put it out on view
-//        }
-        
         highScoreTableView.delegate = self
         highScoreTableView.dataSource = self
-        
-        // At this stage, calling DataStore will cause the app to crash
-        //nameLabel.text = DataStore.shared.name
-        //scoreLabel.text = DataStore.shared.score
 
         // Do any additional setup after loading the view.
     }
     
-//    func saveGameResults(){
-//        let defaults = UserDefaults.standard
-//        defaults.set(self.gameResultArray, forKey: KEY_GAME_RESULT)
-//    }
-    
-//    func readGameResults() -> [PlayerData] {
-//        let defaults = UserDefaults.standard
-//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
-//            return []
-//        }
-//        return array
-//    }
-    
-//    func readGameResults() -> [PlayerData] {
-//        let defaults = UserDefaults.standard
-////        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
-////            return []
-////        }
-//        if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
-//            if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
-//                return array
-//            } else {
-//                return []
-//            }
-//        } else {
-//            return []
-//        }
-//        //return array
-//    }
-    
+    // Clear the game result when user press the button
     func clearGameResults() {
         let defaults = UserDefaults.standard
         //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
@@ -106,11 +60,6 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         defaults.set(try? PropertyListEncoder().encode(emptyArray), forKey: KEY_GAME_RESULT)
     }
     
-//    func saveGameResults(){
-//        let defaults = UserDefaults.standard
-//        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
-//        defaults.set(try? PropertyListEncoder().encode(gameResultArray), forKey: KEY_GAME_RESULT)
-//    }
     
     @IBAction func clearDataButtonPressed(_ sender: UIButton) {
         // Following code for creating alert window is from an online tutorial,
@@ -120,7 +69,6 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this?", preferredStyle: .alert)
         // Create OK button with action handler
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-            //print("Ok button tapped")
             self.clearGameResults()
             // Go back to previous screen, which should be the main menu in current context
             self.navigationController?.popViewController(animated: true)
@@ -128,7 +76,6 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         })
         // Create Cancel button with action handlder
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-            //print("Cancel button tapped")
         }
         //Add OK and Cancel button to an Alert object
         dialogMessage.addAction(ok)

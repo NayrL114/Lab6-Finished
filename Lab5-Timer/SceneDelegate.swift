@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  Lab5-Timer
-//
-//  Created by Hayden Fang on 27/3/2023.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  Lab5-Timer
-//
-//  Created by Hayden Fang on 27/3/2023.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
@@ -42,7 +35,6 @@ class ViewController: UIViewController {
         
         countdownTime = 3
         
-        
         gameSettingsArray = readGameSettings()// retrieve game setting data from UserDefault
         //gameResultArray = readGameResults()
         
@@ -50,104 +42,22 @@ class ViewController: UIViewController {
             // update view elements with game settings stored in UserDefault
             gameTimeSlider.value = Float(gameSettingsArray[0])
             gameBubbleSlider.value = Float(gameSettingsArray[1])
-//            gameTimeSliderLabel.text = "\(Int(gameTimeSlider.value)) Seconds"
-//            gameBubbleSliderLabel.text = "\(Int(gameBubbleSlider.value)) Bubbles"
         }
         gameTimeSliderLabel.text = "\(Int(gameTimeSlider.value)) Seconds"
         gameBubbleSliderLabel.text = "\(Int(gameBubbleSlider.value)) Bubbles"
-        //print(Int(gameSettingsArray[0]))
         
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-//        if segue.identifier == "goToGame" {
-//            let VC = segue.destination as! GameViewController
-//            VC.time = Int(gameTimeSlider.value)
-//            //VC.playerNameLabel.text = nameTextField.text ?? ""
-//            VC.name = nameTextField.text ?? ""
-//            VC.maxBubbleNumbers = Int(gameBubbleSlider.value)
-//        }
-//    }
     
     @IBAction func playButtonTapped(_ sender: UIButton) {
         name = nameTextField.text ?? ""
         
+        // pass the player input data through DataStore for next screen to handle
         DataStore.shared.currentPlayerName = nameTextField.text ?? ""
         DataStore.shared.currentPlayerTime = Int(gameTimeSlider.value)
         DataStore.shared.configuredMaxBubbleNumber = Int(gameBubbleSlider.value)
         
         saveGameSettings()
         
-//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let CountDownViewController = storyBoard.instantiateViewController(withIdentifier: "CountDownViewController") as! CountDownViewController
-//                self.present(CountDownViewController, animated: true, completion: nil)
-        
-//        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-//                        self.countdownTime = self.countdownTime - 1
-//                        if self.countdownTime == 0 {
-//                            // we want to save the name & score to somethere
-//
-//
-//
-//                            timer.invalidate()
-//                        }
-            
-            
-//            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-//                self.countdownTime = self.countdownTime - 1
-//
-//                if self.countdownTime == 0 {
-//                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//                    let GameViewController = storyBoard.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
-//                            self.present(GameViewController, animated: false, completion: nil)
-//
-//                    timer.invalidate()
-//
-//
-//                }
-//            })
-        
-//        if let name = nameTextField.text, name != "" {
-//
-//            saveGameSettings()
-//
-//            nameLabel.text = name
-//            textFieldLabel.isHidden = true
-//            nameTextField.isHidden = true
-//            sender.isHidden = true
-//
-//            //time = Int(gameTimeSlider.value)
-//
-//            //GVC.time = Int(gameTimeSlider.value)
-//            //GVC.setTime(passedTime: Int(gameTimeSlider.value))
-//
-//
-//             // displaying the bubble button
-//            //testBubbleButton.isHidden = false
-//
-//            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-//                self.time = self.time - 1
-//                self.timeLabel.text = String(self.time)
-//                if self.time == 0 {
-//                    // we want to save the name & score to somethere
-//
-//                    // At this stage, calling DataStore will cause the app to crash
-//                    //DataStore.shared.name = self.nameLabel.text ?? ""
-//                    //DataStore.shared.score = self.scoreLabel.text ?? "00"
-//
-//                    self.gameResultArray.append(PlayerData(name: self.nameLabel.text ?? "", score: self.scoreLabel.text ?? ""))
-//                    print("Before sorting array is \(self.gameResultArray)")
-//                    self.gameResultArray.sort {$0.score > $1.score}
-//                    print("After sorting array is \(self.gameResultArray)")
-//                    self.saveGameResults()
-//
-////                    DataStore.shared.players.append(PlayerData(name: self.nameLabel.text ?? "", score: self.scoreLabel.text ?? ""))
-////                    DataStore.shared.players.sort {$0.score > $1.score}
-//
-//                    timer.invalidate()
-//                }
-//            })// end of timer declaration
-//        }
     }
     
     @IBAction func timeSliderMoved(_ sender: UISlider) {
