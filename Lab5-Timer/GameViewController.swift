@@ -134,7 +134,7 @@ class GameViewController: UIViewController {
                 DataStore.shared.currentPlayerName = self.name
                 DataStore.shared.currentPlayerScore = Int(self.playerScoreLabel.text ?? "0")!
 //                DataStore.shared.currentPlayerTime = self.time
-                DataStore.shared.storedResults = self.gameResultArray
+                //DataStore.shared.storedResults = self.gameResultArray
                 
                 
                 
@@ -199,7 +199,7 @@ class GameViewController: UIViewController {
                 if DataStore.shared.storedBubbles[index].bubbleID == sender.bubbleID {
                     DataStore.shared.removeBubbleFromArrayAt(position: index)
                     totalBubbleNumbers -= 1
-                    print("Remove, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
+                    //print("Remove, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
                     return
                 }
             }// end of for loop

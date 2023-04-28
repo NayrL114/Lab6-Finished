@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         countdownTime = 3
         
         
-        //gameSettingsArray = readGameSettings()// retrieve game setting data from UserDefault
+        gameSettingsArray = readGameSettings()// retrieve game setting data from UserDefault
         //gameResultArray = readGameResults()
         
         if (gameSettingsArray.count != 0){// make sure empty array is not accessed.

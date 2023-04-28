@@ -30,7 +30,7 @@ class GameEndViewController: UIViewController, UITableViewDataSource, UITableVie
         }
 
         if let scoreLabel = cell.viewWithTag(scoreTag) as? UILabel{
-            scoreLabel.text = String(player.score)                     
+            scoreLabel.text = String(player.score)
         }
         
         if let timeLabel = cell.viewWithTag(timeTag) as? UILabel{
@@ -80,12 +80,18 @@ class GameEndViewController: UIViewController, UITableViewDataSource, UITableVie
 //            historyNameLabel.text = "N/A"
 //            historyScoreLabel.isHidden = true
 //        }
+        
+        print("before")
+        print(DataStore.shared.storedResults)
                 
         if (DataStore.shared.compareWithStoredHighScore() == true) {
             congratMsg.isHidden = false
         }
         
         DataStore.shared.saveGameResults()
+        
+        print("after")
+        print(DataStore.shared.storedResults)
 
         // Do any additional setup after loading the view.
     }
