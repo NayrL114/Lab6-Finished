@@ -60,6 +60,7 @@ class Bubble: UIButton {
     var isClicked = false
     var gameViewController: ViewController?
     
+    var distanceToScreenBound: Int = 60
     
     var configuredMaxBubbleNo: Int = DataStore.shared.configuredMaxBubbleNumber
     
@@ -89,8 +90,9 @@ class Bubble: UIButton {
         self.bubbleID = ID
         self.yTopConstraint = yCon
         
-        let xPosition = Int.random(in: 60...Int(UIScreen.main.bounds.width) - 60)
-        let yPosition = Int.random(in: yTopConstraint + 60...Int(UIScreen.main.bounds.height) - 60)
+        // var distanceToScreenBound: Int = 60
+        let xPosition = Int.random(in: distanceToScreenBound...Int(UIScreen.main.bounds.width) - distanceToScreenBound)
+        let yPosition = Int.random(in: yTopConstraint + distanceToScreenBound...Int(UIScreen.main.bounds.height) - distanceToScreenBound)
         
         let frame = CGRect(x: xPosition, y: yPosition, width: 50, height: 50)
         super.init(frame: frame)
