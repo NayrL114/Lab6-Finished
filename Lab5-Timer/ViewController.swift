@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         testBubbleButton.isHidden = true
         
         gameSettingsArray = readGameSettings()// retrieve game setting data from UserDefault
-        gameResultArray = readGameResults()
+        //gameResultArray = readGameResults()
         
         if (gameSettingsArray.count != 0){// make sure empty array is not accessed.
             // update view elements with game settings stored in UserDefault
@@ -55,7 +55,6 @@ class ViewController: UIViewController {
 //            gameTimeSliderLabel.text = "\(Int(gameTimeSlider.value)) Seconds"
 //            gameBubbleSliderLabel.text = "\(Int(gameBubbleSlider.value)) Bubbles"
         }
-        
         gameTimeSliderLabel.text = "\(Int(gameTimeSlider.value)) Seconds"
         gameBubbleSliderLabel.text = "\(Int(gameBubbleSlider.value)) Bubbles"
         //print(Int(gameSettingsArray[0]))

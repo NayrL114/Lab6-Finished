@@ -20,6 +20,8 @@ class DataStore {
     var currentPlayerScore: Int = 0
     var currentPlayerTime: Int = 0
     
+    var configuredMaxBubbleNumber: Int = 0
+    
     var storedResults: [PlayerData] = []
     
     static let shared = DataStore()

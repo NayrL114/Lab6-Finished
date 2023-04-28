@@ -17,9 +17,12 @@ class GameEndViewController: UIViewController {
     
     @IBOutlet weak var congratMsg: UILabel!
     
+    @IBOutlet weak var playAgainButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        playAgainButton.isHidden = true
         congratMsg.isHidden = true
         
         playerNameLabel.text = DataStore.shared.currentPlayerName

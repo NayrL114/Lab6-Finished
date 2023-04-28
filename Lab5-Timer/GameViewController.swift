@@ -60,7 +60,7 @@ class GameViewController: UIViewController {
                 
                 //self.saveGameResults()
                 
-                // Below code goes to game view
+                // Below code goes to game end view
                 let GameEndViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameEndViewController") as! GameEndViewController
                 self.navigationController?.pushViewController(GameEndViewController, animated: true)
                 
