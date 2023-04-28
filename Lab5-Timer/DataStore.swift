@@ -7,10 +7,11 @@
 
 import Foundation
 
-//struct PlayerData{
-//    let name: String
-//    let score: String
-//}
+struct PlayerData: Codable {
+    let name: String
+    let score: Int
+    let time: Int
+}
 
 class DataStore {
     
@@ -18,8 +19,7 @@ class DataStore {
     
     var currentPlayerName: String = ""
     var currentPlayerScore: Int = 0
-    var currentPlayerTime: Int = 0
-    
+    var currentPlayerTime: Int = 0    
     var configuredMaxBubbleNumber: Int = 0
     
     var storedResults: [PlayerData] = []
@@ -32,6 +32,7 @@ class DataStore {
     static let shared = DataStore()
     
     private init() {
+        storedResults = readGameResults()
         //fatalError()
     }
     
@@ -60,7 +61,7 @@ class DataStore {
     }
     
     func storeNewDataIntoHighScore() {
-        storedResults.append(PlayerData(name: currentPlayerName, score: currentPlayerScore))
+        storedResults.append(PlayerData(name: currentPlayerName, score: currentPlayerScore, time: currentPlayerTime))
     }
     
     func sortStoredHighScore() {

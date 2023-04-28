@@ -27,7 +27,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerScoreLabel: UILabel!
     @IBOutlet weak var playerTimeLabel: UILabel!
     
-    @IBOutlet weak var testBubbleButton: UIButton!
+    var countdownTime: Int = 3
     
     var totalBubbleNumbers: Int = 0
     var maxBubbleNumbers: Int = 0
@@ -36,35 +36,86 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        testBubbleButton.isHidden = true
         
         //print(playerNameLabel.frame.origin.x) 16
         //print(playerNameLabel.frame.origin.y) 190
         
-        gameResultArray = readGameResults()
-//        if (gameResultArray.count != 0){
+        //gameResultArray = readGameResults()
+        if (DataStore.shared.storedResults.count != 0){
 //            // retrieve the current high score from gameResultArray[0] and put it out on view
 //            //print(gameResultArray)
-//        }
+            historyHighScoreName.text = DataStore.shared.storedResults[0].name
+            historyHighScoreLabel.text = String(DataStore.shared.storedResults[0].score)
+            historyHighScoreTime.text = String(DataStore.shared.storedResults[0].time)
+        } else {
+            historyHighScoreName.text = "N/A"
+            historyHighScoreLabel.text = "0"
+            historyHighScoreTime.text = "N/A"
+        }
         
         //time = Int(playerTimeLabel.text!)!
         //print(time)
         
-        DataStore.shared.clearStoredBubbleArray()
-        self.totalBubbleNumbers = 0
+//        DataStore.shared.clearStoredBubbleArray()
+//        self.totalBubbleNumbers = 0
+//        playerTimeLabel.text = String(time)
+//        playerNameLabel.text = name
         
+        //DataStore.shared.currentPlayerTime = self.time
+        
+        self.time = DataStore.shared.currentPlayerTime
+        self.name = DataStore.shared.currentPlayerName
+        self.maxBubbleNumbers = DataStore.shared.configuredMaxBubbleNumber
+        
+        playerNameLabel.text = String(name)
+        playerScoreLabel.text = "0"
         playerTimeLabel.text = String(time)
-        playerNameLabel.text = name
         
         DataStore.shared.streakCounter = 0
         DataStore.shared.previousColour = Bubble.BubbleColour.White
         
-        startGame()
+        //startGame()
+        countDown()
 
         // Do any additional setup after loading the view.
     }
     
-    func startGame(){
+    func countDown() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let CountDownViewController = storyBoard.instantiateViewController(withIdentifier: "CountDownViewController") as! CountDownViewController
+                self.present(CountDownViewController, animated: true, completion: nil)
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            self.countdownTime = self.countdownTime - 1
+            
+            if self.countdownTime == 0 {
+                self.startGame()
+                
+                timer.invalidate()
+                
+                
+            }
+        })
+    }
+    
+    func startGame() {
+        
+        
+        
+//        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+//            self.countdownTime = self.countdownTime - 1
+//
+//            if self.countdownTime == 0 {
+//                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                let GameViewController = storyBoard.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+//                        self.present(GameViewController, animated: false, completion: nil)
+//
+//                timer.invalidate()
+//
+//
+//            }
+//        })
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             self.time = self.time - 1
             self.playerTimeLabel.text = String(self.time)
@@ -82,7 +133,7 @@ class GameViewController: UIViewController {
                 
                 DataStore.shared.currentPlayerName = self.name
                 DataStore.shared.currentPlayerScore = Int(self.playerScoreLabel.text ?? "0")!
-                DataStore.shared.currentPlayerTime = self.time
+//                DataStore.shared.currentPlayerTime = self.time
                 DataStore.shared.storedResults = self.gameResultArray
                 
                 
@@ -248,11 +299,11 @@ class GameViewController: UIViewController {
         }
     }
     
-    func saveGameResults(){
-        let defaults = UserDefaults.standard
-        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
-        defaults.set(try? PropertyListEncoder().encode(gameResultArray), forKey: KEY_GAME_RESULT)
-    }
+//    func saveGameResults(){
+//        let defaults = UserDefaults.standard
+//        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
+//        defaults.set(try? PropertyListEncoder().encode(gameResultArray), forKey: KEY_GAME_RESULT)
+//    }
     
 //    func readGameResults() -> [PlayerData] {
 //        let defaults = UserDefaults.standard
@@ -262,22 +313,22 @@ class GameViewController: UIViewController {
 //        return array
 //    }
     
-    func readGameResults() -> [PlayerData] {
-        let defaults = UserDefaults.standard
-//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+//    func readGameResults() -> [PlayerData] {
+//        let defaults = UserDefaults.standard
+////        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+////            return []
+////        }
+//        if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
+//            if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
+//                return array
+//            } else {
+//                return []
+//            }
+//        } else {
 //            return []
 //        }
-        if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
-            if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
-                return array
-            } else {
-                return []
-            }
-        } else {
-            return []
-        }
-        //return array
-    }
+//        //return array
+//    }
     
 //    func setTime(passedTime: Int){
 //        time = passedTime

@@ -13,17 +13,18 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     //var gameResultArray: [PlayerData] = []
     
     let nameTag = 100
-    let scoreTag = 101    
+    let scoreTag = 101
+    let timeTag = 102
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return DataStore.shared.players.count
-        return readGameResults().count
+        return DataStore.shared.storedResults.count
+        //return readGameResults().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "scoreCell", for: indexPath)
         
-        let gameResultArray = readGameResults()
+        let gameResultArray = DataStore.shared.storedResults
         let player = gameResultArray[indexPath.row]
         
 //        let player = DataStore.shared.players[indexPath.row]
@@ -34,6 +35,10 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
 
         if let scoreLabel = cell.viewWithTag(scoreTag) as? UILabel{
             scoreLabel.text = String(player.score)
+        }
+        
+        if let timeLabel = cell.viewWithTag(timeTag) as? UILabel{
+            timeLabel.text = String(player.time)
         }
                 
         return cell
@@ -77,22 +82,22 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
 //        return array
 //    }
     
-    func readGameResults() -> [PlayerData] {
-        let defaults = UserDefaults.standard
-//        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+//    func readGameResults() -> [PlayerData] {
+//        let defaults = UserDefaults.standard
+////        guard let array = defaults.array(forKey: KEY_GAME_RESULT) as? [PlayerData] else {
+////            return []
+////        }
+//        if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
+//            if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
+//                return array
+//            } else {
+//                return []
+//            }
+//        } else {
 //            return []
 //        }
-        if let savedArrayData = defaults.value(forKey: KEY_GAME_RESULT) as? Data {
-            if let array = try? PropertyListDecoder().decode(Array<PlayerData>.self, from: savedArrayData){
-                return array
-            } else {
-                return []
-            }
-        } else {
-            return []
-        }
-        //return array
-    }
+//        //return array
+//    }
     
     func clearGameResults() {
         let defaults = UserDefaults.standard
@@ -115,7 +120,7 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this?", preferredStyle: .alert)
         // Create OK button with action handler
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-            print("Ok button tapped")
+            //print("Ok button tapped")
             self.clearGameResults()
             // Go back to previous screen, which should be the main menu in current context
             self.navigationController?.popViewController(animated: true)
@@ -123,7 +128,7 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         })
         // Create Cancel button with action handlder
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-            print("Cancel button tapped")
+            //print("Cancel button tapped")
         }
         //Add OK and Cancel button to an Alert object
         dialogMessage.addAction(ok)
