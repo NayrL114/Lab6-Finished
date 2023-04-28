@@ -67,6 +67,7 @@ class ViewController: UIViewController {
             VC.time = Int(gameTimeSlider.value)
             //VC.playerNameLabel.text = nameTextField.text ?? ""
             VC.name = nameTextField.text ?? ""
+            VC.maxBubbleNumbers = Int(gameBubbleSlider.value)
         }
     }
 

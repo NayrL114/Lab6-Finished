@@ -53,13 +53,16 @@ class Bubble: UIButton {
     var isClicked = false
     var gameViewController: ViewController?
     
+    var bubbleID: Int
+    
     var configuredMaxBubbleNo: Int = DataStore.shared.configuredMaxBubbleNumber
     
     var bubbleStore: [Bubble] = []
     
-    init(colour: BubbleColour) {
+    init(colour: BubbleColour, ID: Int) {
         self.colour = colour
         self.score = colour.score
+        self.bubbleID = ID
         let frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         super.init(frame: frame)
         self.layer.cornerRadius = frame.width / 2
@@ -75,7 +78,12 @@ class Bubble: UIButton {
 //            self.removeFromSuperview()
 //        }
         self.removeFromSuperview()
-        
+        for index in 0...bubbleStore.count-1 {
+            if bubbleStore[index].bubbleID == self.bubbleID {
+                bubbleStore.remove(at: index)
+                return
+            }
+        }
     }
     
     func generateBubble() {

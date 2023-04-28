@@ -13,6 +13,8 @@ class GameViewController: UIViewController {
     var time: Int = 0
     var name: String = ""
     
+    let bubble = Bubble()
+    
     let KEY_GAME_RESULT = "gameResult"
     var gameResultArray: [PlayerData] = []
 
@@ -24,6 +26,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerScoreLabel: UILabel!
     @IBOutlet weak var playerTimeLabel: UILabel!
     
+    var totalBubbleNumbers: Int = 0
+    var maxBubbleNumbers: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +86,18 @@ class GameViewController: UIViewController {
         if var score = Int(playerScoreLabel.text ?? "0") {
             score = score + 1
             playerScoreLabel.text = "\(score)"
+        }
+    }
+    
+    func generateBubble(){
+        guard totalBubbleNumbers < maxBubbleNumbers else {
+            return
+        }
+        
+        let generateNumberThisTime: Int = Int.random(in: 1...maxBubbleNumbers-totalBubbleNumbers)
+        for _ in (1...generateNumberThisTime){
+            // generate a new bubble object here, assign colour and id, place in view
+            
         }
     }
     
