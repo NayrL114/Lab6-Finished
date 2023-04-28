@@ -224,15 +224,15 @@ class GameViewController: UIViewController {
                 let bubble: Bubble
                 switch probability {
                 case 1...40:
-                    bubble = Bubble(colour: Bubble.BubbleColour.Red, ID: bubbleID)
+                    bubble = Bubble(colour: Bubble.BubbleColour.Red, ID: bubbleID, yCon: Int(playerScoreLabel.frame.origin.y))
                 case 41...70:
-                    bubble = Bubble(colour: Bubble.BubbleColour.Pink, ID: bubbleID)
+                    bubble = Bubble(colour: Bubble.BubbleColour.Pink, ID: bubbleID, yCon: Int(playerScoreLabel.frame.origin.y))
                 case 71...85:
-                    bubble = Bubble(colour: Bubble.BubbleColour.Green, ID: bubbleID)
+                    bubble = Bubble(colour: Bubble.BubbleColour.Green, ID: bubbleID, yCon: Int(playerScoreLabel.frame.origin.y))
                 case 86...95:
-                    bubble = Bubble(colour: Bubble.BubbleColour.Blue, ID: bubbleID)
+                    bubble = Bubble(colour: Bubble.BubbleColour.Blue, ID: bubbleID, yCon: Int(playerScoreLabel.frame.origin.y))
                 default:
-                    bubble = Bubble(colour: Bubble.BubbleColour.Black, ID: bubbleID)
+                    bubble = Bubble(colour: Bubble.BubbleColour.Black, ID: bubbleID, yCon: Int(playerScoreLabel.frame.origin.y))
                 }
                 overlapping = checkBubbleOverlapping(bubble: bubble)
                 

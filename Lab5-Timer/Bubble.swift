@@ -65,8 +65,13 @@ class Bubble: UIButton {
     
     //var bubbleStore: [Bubble] = []
     
-    let xPosition = Int.random(in: 60...340)
-    let yPosition = Int.random(in: 260...740)
+//    let xPosition = Int.random(in: 60...340)
+//    let yPosition = Int.random(in: 260...740)
+    
+    let yTopConstraint: Int
+    
+//    let xPosition = Int.random(in: 60...Int(UIScreen.main.bounds.width) - 60)
+//    let yPosition = Int.random(in: yTopConstraint...Int(UIScreen.main.bounds.height) - 60)
     
 //    override init(frame: CGRect, ID: Int) {
 ////        self.score = 1
@@ -78,10 +83,15 @@ class Bubble: UIButton {
 //        self.layer.cornerRadius = 0.5 * self.bounds.size.width
 //    }
     
-    init(colour: BubbleColour, ID: Int) {
+    init(colour: BubbleColour, ID: Int, yCon: Int) {
         self.colour = colour
         self.score = colour.score
         self.bubbleID = ID
+        self.yTopConstraint = yCon
+        
+        let xPosition = Int.random(in: 60...Int(UIScreen.main.bounds.width) - 60)
+        let yPosition = Int.random(in: yTopConstraint + 60...Int(UIScreen.main.bounds.height) - 60)
+        
         let frame = CGRect(x: xPosition, y: yPosition, width: 50, height: 50)
         super.init(frame: frame)
         self.layer.cornerRadius = frame.width / 2
