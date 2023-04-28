@@ -16,6 +16,7 @@ class Bubble: UIButton {
         case Green
         case Blue
         case Black
+        case White
         
         var score: Int {
             switch self {
@@ -29,6 +30,8 @@ class Bubble: UIButton {
                 return 8
             case .Black:
                 return 10
+            case .White:
+                return 0
             }
         }
         
@@ -44,46 +47,62 @@ class Bubble: UIButton {
                 return UIColor(red: 0, green: 0, blue: 1, alpha: 1)
             case .Black:
                 return UIColor.black
+            case .White:
+                return UIColor.white
             }
         }
     }// end of enum
     
-    var score: Int
-    var colour: BubbleColour
+    var score: Int?
+    var colour: BubbleColour?
+    var bubbleID: Int?
+    
     var isClicked = false
     var gameViewController: ViewController?
     
-    var bubbleID: Int
     
     var configuredMaxBubbleNo: Int = DataStore.shared.configuredMaxBubbleNumber
     
-    var bubbleStore: [Bubble] = []
+    //var bubbleStore: [Bubble] = []
+    
+    let xPosition = Int.random(in: 60...340)
+    let yPosition = Int.random(in: 260...740)
+    
+//    override init(frame: CGRect, ID: Int) {
+////        self.score = 1
+////        self.colour = .Red
+//        self.bubbleID = ID
+//        super.init(frame: frame)
+//        self.backgroundColor = .red
+//        self.frame = CGRect(x: xPosition, y: yPosition, width: 50, height: 50)
+//        self.layer.cornerRadius = 0.5 * self.bounds.size.width
+//    }
     
     init(colour: BubbleColour, ID: Int) {
         self.colour = colour
         self.score = colour.score
         self.bubbleID = ID
-        let frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        let frame = CGRect(x: xPosition, y: yPosition, width: 50, height: 50)
         super.init(frame: frame)
         self.layer.cornerRadius = frame.width / 2
         self.clipsToBounds = true
         self.backgroundColor = colour.colour
-        
-        bubbleStore.append(self)
+
+        //bubbleStore.append(self)
     }
     
-    func removeBubbleOnClick() {
+    func removeBubble() {
         //bubbleStore.remove(self)
 //        if isClicked == true {
 //            self.removeFromSuperview()
 //        }
         self.removeFromSuperview()
-        for index in 0...bubbleStore.count-1 {
-            if bubbleStore[index].bubbleID == self.bubbleID {
-                bubbleStore.remove(at: index)
-                return
-            }
-        }
+//        for index in 0...bubbleStore.count-1 {
+//            if bubbleStore[index].bubbleID == self.bubbleID {
+//                bubbleStore.remove(at: index)
+//                return
+//            }
+//        }
     }
     
     func generateBubble() {
@@ -91,17 +110,28 @@ class Bubble: UIButton {
         
     }
     
-    func removeRandomBubbles() {
-        let totalRemoveNumber = Int.random(in: 1...configuredMaxBubbleNo)
-        var counter: Int = 0
-        while(counter <= totalRemoveNumber){
-            let removePosition = Int.random(in: 0...bubbleStore.count)
-            bubbleStore.remove(at: removePosition)
-        }
+    func animation() {
+        let springAnimation = CASpringAnimation(keyPath: "transform.scale")
+        springAnimation.duration = 0.6
+        springAnimation.fromValue = 1
+        springAnimation.toValue = 0.8
+        springAnimation.repeatCount = 1
+        springAnimation.initialVelocity = 0.5
+        springAnimation.damping = 1
+        
+        layer.add(springAnimation, forKey: nil)
     }
     
-    func removeBubbleFromArrayAt(position: Int) {
-        bubbleStore.remove(at: position)
+    func flash() {
+        let flash = CABasicAnimation(keyPath: "opacity")
+        flash.duration = 0.2
+        flash.fromValue = 1
+        flash.toValue = 0.1
+        flash.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        flash.autoreverses = true
+        flash.repeatCount = 3
+        
+        layer.add(flash, forKey: nil)
     }
     
     required init?(coder: NSCoder) {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//import Bubble
 
 class GameViewController: UIViewController {
     
@@ -13,7 +14,7 @@ class GameViewController: UIViewController {
     var time: Int = 0
     var name: String = ""
     
-    let bubble = Bubble()
+    //let bubble = Bubble()
     
     let KEY_GAME_RESULT = "gameResult"
     var gameResultArray: [PlayerData] = []
@@ -26,22 +27,37 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerScoreLabel: UILabel!
     @IBOutlet weak var playerTimeLabel: UILabel!
     
+    @IBOutlet weak var testBubbleButton: UIButton!
+    
     var totalBubbleNumbers: Int = 0
     var maxBubbleNumbers: Int = 0
+    var bubbleID: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        testBubbleButton.isHidden = true
+        
+        //print(playerNameLabel.frame.origin.x) 16
+        //print(playerNameLabel.frame.origin.y) 190
+        
         gameResultArray = readGameResults()
-        if (gameResultArray.count != 0){
-            // retrieve the current high score from gameResultArray[0] and put it out on view
-            //print(gameResultArray)
-        }
+//        if (gameResultArray.count != 0){
+//            // retrieve the current high score from gameResultArray[0] and put it out on view
+//            //print(gameResultArray)
+//        }
         
         //time = Int(playerTimeLabel.text!)!
         //print(time)
+        
+        DataStore.shared.clearStoredBubbleArray()
+        self.totalBubbleNumbers = 0
+        
         playerTimeLabel.text = String(time)
         playerNameLabel.text = name
+        
+        DataStore.shared.streakCounter = 0
+        DataStore.shared.previousColour = Bubble.BubbleColour.White
         
         startGame()
 
@@ -52,6 +68,13 @@ class GameViewController: UIViewController {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             self.time = self.time - 1
             self.playerTimeLabel.text = String(self.time)
+            
+            self.removeRandomBubbles()
+            //print("Before, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
+            self.generateBubble()
+            //print("aFTER, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
+            
+            
             if self.time == -1 {
                 
 //                self.gameResultArray.append(PlayerData(name: self.playerNameLabel.text ?? "", score: Int(self.playerScoreLabel.text ?? "0")! ))
@@ -61,6 +84,8 @@ class GameViewController: UIViewController {
                 DataStore.shared.currentPlayerScore = Int(self.playerScoreLabel.text ?? "0")!
                 DataStore.shared.currentPlayerTime = self.time
                 DataStore.shared.storedResults = self.gameResultArray
+                
+                
                 
                 //self.saveGameResults()
                 
@@ -77,15 +102,56 @@ class GameViewController: UIViewController {
                 timer.invalidate()
                 
                 
-                
             }
         })
     }
     
-    @IBAction func bubbleButtonPressed(_ sender: UIButton) {
+    @IBAction func bubbleButtonPressed(_ sender: Bubble) { //Bubble is a subclass of UIButton
         if var score = Int(playerScoreLabel.text ?? "0") {
-            score = score + 1
+            //score = score + 1
+            
+            print("sender colour should be \(sender.colour!)")
+            print("previous colour should be \(DataStore.shared.previousColour)")
+            
+            if sender.colour == DataStore.shared.previousColour {
+                
+                DataStore.shared.streakCounter += 1
+                print("same colour as previous, combo is \(DataStore.shared.streakCounter)")
+            } else {
+                DataStore.shared.streakCounter = 0
+                DataStore.shared.previousColour = sender.colour!
+                print("new colour, reset combo back to \(DataStore.shared.streakCounter)")
+            }
+            
+            var multiplier: Double = 1.0
+            if DataStore.shared.streakCounter > 0 {
+                multiplier = 1.5
+            }
+            
+            print("multiplier is \(multiplier)")
+            print("bubble base score is \(sender.score!)")
+            print("This bubble is worth double score \((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter))))")
+            print("After rounding the int score should be \(round((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter)))))")
+            
+            //if (DataStore.shared.streakCounter > 0){
+            score = Int(Double(score) + round((Double(sender.score!) * pow(multiplier, Double(DataStore.shared.streakCounter)))))
+            //} else {
+            //    score = Int(score + sender.score!)
+            //}
+            
+            
             playerScoreLabel.text = "\(score)"
+            sender.flash()
+            sender.removeFromSuperview()
+            
+            for index in (0...DataStore.shared.storedBubbles.count - 1) {
+                if DataStore.shared.storedBubbles[index].bubbleID == sender.bubbleID {
+                    DataStore.shared.removeBubbleFromArrayAt(position: index)
+                    totalBubbleNumbers -= 1
+                    print("Remove, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
+                    return
+                }
+            }// end of for loop
         }
     }
     
@@ -97,7 +163,88 @@ class GameViewController: UIViewController {
         let generateNumberThisTime: Int = Int.random(in: 1...maxBubbleNumbers-totalBubbleNumbers)
         for _ in (1...generateNumberThisTime){
             // generate a new bubble object here, assign colour and id, place in view
+            //bubble = Bubble(colour: .Black, ID: bubbleID)
             
+            // This do...while loop should generate non-overlapping bubbles
+            var overlapping: Bool
+            //var bubble: Bubble = nil
+            repeat{
+                let probability = Int.random(in: 1...100)
+                let bubble: Bubble
+                switch probability {
+                case 1...40:
+                    bubble = Bubble(colour: Bubble.BubbleColour.Red, ID: bubbleID)
+                case 41...70:
+                    bubble = Bubble(colour: Bubble.BubbleColour.Pink, ID: bubbleID)
+                case 71...85:
+                    bubble = Bubble(colour: Bubble.BubbleColour.Green, ID: bubbleID)
+                case 86...95:
+                    bubble = Bubble(colour: Bubble.BubbleColour.Blue, ID: bubbleID)
+                default:
+                    bubble = Bubble(colour: Bubble.BubbleColour.Black, ID: bubbleID)
+                }
+                overlapping = checkBubbleOverlapping(bubble: bubble)
+                
+                if (!overlapping) {
+                    bubble.animation()
+                    //bubble.addTarget(self, action: #selector(bubble.removeBubbleOnClick()), for: .touchUpInside)
+                    bubble.addTarget(self, action: #selector(bubbleButtonPressed), for: .touchUpInside)
+                    self.view.addSubview(bubble)
+                    
+                    bubbleID += 1
+                    DataStore.shared.storedBubbles.append(bubble)
+                }
+            } while (overlapping)
+            
+            //let bubble = Bubble()
+            //let bubble = Bubble(colour: Bubble.BubbleColour.Red, ID: bubbleID)
+            
+//            bubble.animation()
+//            //bubble.addTarget(self, action: #selector(bubble.removeBubbleOnClick()), for: .touchUpInside)
+//            bubble.addTarget(self, action: #selector(bubbleButtonPressed), for: .touchUpInside)
+//            self.view.addSubview(bubble)
+//
+//            bubbleID += 1
+//            DataStore.shared.storedBubbles.append(bubble)
+        }
+        
+        totalBubbleNumbers += generateNumberThisTime
+        
+//        bubble.animation()
+//        //bubble.addTarget(self, action: #selector(bubble.removeBubbleOnClick()), for: .touchUpInside)
+//        bubble.addTarget(self, action: #selector(bubbleButtonPressed), for: .touchUpInside)
+//        self.view.addSubview(bubble)
+    }// end of generateBubble()
+            
+    func checkBubbleOverlapping(bubble: Bubble) -> Bool {
+        guard DataStore.shared.storedBubbles.count > 0 else {
+            return false
+        }
+        for index in (0...DataStore.shared.storedBubbles.count - 1){
+            if (CGRectIntersectsRect(bubble.frame, DataStore.shared.storedBubbles[index].frame)) {
+                return true
+             }
+        }
+        return false
+    }
+    
+    func removeRandomBubbles() {
+        guard DataStore.shared.storedBubbles.count > 1 else {
+            return
+        }
+        
+        let totalRemoveNumber = Int.random(in: 1...DataStore.shared.storedBubbles.count)
+        var counter: Int = 0
+        //print("This time we are suppose to remove \(totalRemoveNumber) bubbles")
+        while(counter < totalRemoveNumber){
+            
+            //print("length of storedBubble array is \(DataStore.shared.storedBubbles.count)")
+            let removePosition = Int.random(in: 0...DataStore.shared.storedBubbles.count - 1)
+            DataStore.shared.storedBubbles[removePosition].removeBubble()
+            DataStore.shared.storedBubbles.remove(at: removePosition)
+            
+            counter += 1
+            totalBubbleNumbers -= 1
         }
     }
     
@@ -132,9 +279,9 @@ class GameViewController: UIViewController {
         //return array
     }
     
-    func setTime(passedTime: Int){
-        time = passedTime
-    }
+//    func setTime(passedTime: Int){
+//        time = passedTime
+//    }
     
 
     /*

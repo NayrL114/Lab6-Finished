@@ -24,10 +24,32 @@ class DataStore {
     
     var storedResults: [PlayerData] = []
     
+    var storedBubbles: [Bubble] = []
+    
+    var streakCounter: Int = 0
+    var previousColour: Bubble.BubbleColour = Bubble.BubbleColour.White
+    
     static let shared = DataStore()
     
     private init() {
         //fatalError()
+    }
+    
+//    func removeRandomBubbles() {
+//        let totalRemoveNumber = Int.random(in: 1...storedBubbles.count)
+//        var counter: Int = 0
+//        while(counter <= totalRemoveNumber){
+//            let removePosition = Int.random(in: 0...storedBubbles.count)
+//            storedBubbles.remove(at: removePosition)
+//        }
+//    }
+    
+    func removeBubbleFromArrayAt(position: Int) {
+        storedBubbles.remove(at: position)
+    }
+    
+    func clearStoredBubbleArray() {
+        storedBubbles = []
     }
     
     func compareWithStoredHighScore() -> Bool {

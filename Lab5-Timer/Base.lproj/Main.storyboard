@@ -116,7 +116,7 @@
                                     <action selector="bubblePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hwe-zj-7wB"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="60" minValue="0.0" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="cHC-KM-CRN">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="60" minValue="1" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="cHC-KM-CRN">
                                 <rect key="frame" x="44.666666666666657" y="441" width="304" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="n5B-FZ-3eG"/>
@@ -304,6 +304,7 @@
                         <outlet property="playerNameLabel" destination="3LU-hz-kwm" id="Q3d-i7-KDb"/>
                         <outlet property="playerScoreLabel" destination="W3N-S5-O2l" id="Ipu-Ba-mCn"/>
                         <outlet property="playerTimeLabel" destination="Zc5-Hl-Mgm" id="SiM-PA-HbK"/>
+                        <outlet property="testBubbleButton" destination="vjT-gK-98W" id="0F6-cF-w4s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ew-KO-9W9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -578,7 +579,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TE9-ea-smS">
-                                <rect key="frame" x="159" y="305" width="75" height="36"/>
+                                <rect key="frame" x="0.0" y="305" width="393" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
@@ -605,19 +606,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nfg-KS-Q7W">
-                                <rect key="frame" x="139" y="702" width="115" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Play Again">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="playAgainButtonPressed:" destination="mbV-iz-JS8" eventType="touchUpInside" id="q1G-7v-Clm"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jOe-Hf-T6t">
-                                <rect key="frame" x="93" y="748" width="206" height="38"/>
+                                <rect key="frame" x="92" y="780" width="206" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Return to main menu">
@@ -628,7 +618,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You are the new high score!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVI-T1-zC5">
-                                <rect key="frame" x="33" y="614" width="330" height="34"/>
+                                <rect key="frame" x="32" y="738" width="330" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" systemColor="systemYellowColor"/>
@@ -642,14 +632,13 @@
                         <outlet property="congratMsg" destination="lVI-T1-zC5" id="EOj-In-yMh"/>
                         <outlet property="historyNameLabel" destination="dbf-kl-gKE" id="tDf-xJ-Ct2"/>
                         <outlet property="historyScoreLabel" destination="xQD-hH-Bpf" id="Znm-EU-eED"/>
-                        <outlet property="playAgainButton" destination="Nfg-KS-Q7W" id="vtw-Vl-RJ2"/>
                         <outlet property="playerNameLabel" destination="jeP-c4-EdU" id="5D3-Af-i9H"/>
                         <outlet property="playerScoreLabel" destination="TE9-ea-smS" id="MEX-gB-ZDh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RdD-BM-PdI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2770" y="-669"/>
+            <point key="canvasLocation" x="2768.7022900763359" y="-669.0140845070423"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kvE-Xa-Dvu">
