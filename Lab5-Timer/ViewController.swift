@@ -48,6 +48,9 @@ class ViewController: UIViewController {
         gameTimeSliderLabel.text = "\(Int(gameTimeSlider.value)) Seconds"
         gameBubbleSliderLabel.text = "\(Int(gameBubbleSlider.value)) Bubbles"
         
+        // Code from tutorial for dismiss iOS keyboard
+        self.hideKeyboardWhenTappedAround()
+        
     }
     
     @IBAction func playButtonTapped(_ sender: UIButton) {
@@ -109,3 +112,17 @@ class ViewController: UIViewController {
     
 }
 
+// Below codes are from online tutorial for how to dismiss iOS keyboard
+// Link: stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift
+// Put this piece of code anywhere you like
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

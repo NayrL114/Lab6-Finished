@@ -61,11 +61,13 @@ class GameEndViewController: UIViewController, UITableViewDataSource, UITableVie
         congratMsg.isHidden = true
         
         playerNameLabel.text = DataStore.shared.currentPlayerName
-        playerScoreLabel.text = String(DataStore.shared.currentPlayerScore)
-        playerTimeLabel.text = String(DataStore.shared.currentPlayerTime)
+        //playerScoreLabel.text = String(DataStore.shared.currentPlayerScore)
+        //playerTimeLabel.text = String(DataStore.shared.currentPlayerTime)
+        playerScoreLabel.text = "\(DataStore.shared.currentPlayerScore) Points"
+        playerTimeLabel.text = "\(DataStore.shared.currentPlayerTime) Secs"
         
-        print("before")
-        print(DataStore.shared.storedResults)
+//        print("before")
+//        print(DataStore.shared.storedResults)
                 
         if (DataStore.shared.compareWithStoredHighScore() == true) {
             congratMsg.isHidden = false

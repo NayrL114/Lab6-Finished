@@ -36,11 +36,16 @@ class GameViewController: UIViewController {
         if (DataStore.shared.storedResults.count != 0){
             // retrieve the current high score from gameResultArray[0] and put it out on view
             historyHighScoreName.text = DataStore.shared.storedResults[0].name
-            historyHighScoreLabel.text = String(DataStore.shared.storedResults[0].score)
-            historyHighScoreTime.text = String(DataStore.shared.storedResults[0].time)
+            
+//            historyHighScoreLabel.text = String(DataStore.shared.storedResults[0].score)
+//            historyHighScoreTime.text = String(DataStore.shared.storedResults[0].time)
+            
+            historyHighScoreLabel.text = "\(DataStore.shared.storedResults[0].score) pts"
+            historyHighScoreTime.text = "\(DataStore.shared.storedResults[0].time) secs"
+            
         } else {
             historyHighScoreName.text = "N/A"
-            historyHighScoreLabel.text = "0"
+            historyHighScoreLabel.text = "0 Points"
             historyHighScoreTime.text = "N/A"
         }
         
