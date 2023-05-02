@@ -1,3 +1,5 @@
+// This project file is built based on the week 5 lab timer demo
+
 import UIKit
 
 class ViewController: UIViewController {
