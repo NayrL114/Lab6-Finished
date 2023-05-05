@@ -259,12 +259,12 @@
                             <constraint firstItem="pGy-Ci-scN" firstAttribute="centerX" secondItem="pgY-1D-aJt" secondAttribute="centerX" id="IVL-Sg-Zfu"/>
                             <constraint firstItem="W3N-S5-O2l" firstAttribute="centerX" secondItem="pgY-1D-aJt" secondAttribute="centerX" id="NjH-We-0x5"/>
                             <constraint firstItem="hga-I5-fob" firstAttribute="leading" secondItem="pgY-1D-aJt" secondAttribute="leading" constant="16" id="QRj-Is-uJ2"/>
+                            <constraint firstItem="pGy-Ci-scN" firstAttribute="top" secondItem="pgY-1D-aJt" secondAttribute="top" constant="31" id="ZRK-QN-3wL"/>
                             <constraint firstItem="hga-I5-fob" firstAttribute="top" secondItem="Kdw-0Y-8xV" secondAttribute="bottom" constant="13" id="ecj-8G-5cU"/>
                             <constraint firstItem="0Lv-rf-Wrw" firstAttribute="top" secondItem="pgY-1D-aJt" secondAttribute="top" id="o6t-KB-gPk"/>
                             <constraint firstItem="C2R-hJ-G1Q" firstAttribute="leading" secondItem="Kdw-0Y-8xV" secondAttribute="trailing" constant="8" symbolic="YES" id="ohW-EQ-WHR"/>
                             <constraint firstItem="Zc5-Hl-Mgm" firstAttribute="top" secondItem="NnO-de-1pU" secondAttribute="bottom" constant="5" id="oro-RQ-MMv"/>
                             <constraint firstItem="3LU-hz-kwm" firstAttribute="top" secondItem="hga-I5-fob" secondAttribute="bottom" constant="5" id="pWk-R9-ddW"/>
-                            <constraint firstItem="pGy-Ci-scN" firstAttribute="top" secondItem="C2R-hJ-G1Q" secondAttribute="bottom" constant="13" id="uSG-Zz-UU1"/>
                             <constraint firstItem="NnO-de-1pU" firstAttribute="top" secondItem="JDP-Jo-4qY" secondAttribute="bottom" constant="13" id="xcq-o5-Jl1"/>
                             <constraint firstItem="pgY-1D-aJt" firstAttribute="trailing" secondItem="NnO-de-1pU" secondAttribute="trailing" constant="16" id="zlu-Ap-sSu"/>
                         </constraints>
