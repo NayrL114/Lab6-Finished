@@ -54,10 +54,12 @@ class HighScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Clear the game result when user press the button
     func clearGameResults() {
-        let defaults = UserDefaults.standard
-        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
-        let emptyArray: [PlayerData] = []
-        defaults.set(try? PropertyListEncoder().encode(emptyArray), forKey: KEY_GAME_RESULT)
+//        let defaults = UserDefaults.standard
+//        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
+//        let emptyArray: [PlayerData] = []
+//        //DataStore.shared.gameResultArray
+//        defaults.set(try? PropertyListEncoder().encode(emptyArray), forKey: KEY_GAME_RESULT)
+        DataStore.shared.clearGameResults()
     }
     
     

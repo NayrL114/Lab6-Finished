@@ -84,4 +84,13 @@ class DataStore {
         }
         //return array
     }
+    
+    func clearGameResults(){
+        let defaults = UserDefaults.standard
+        //defaults.set(gameResultArray, forKey: KEY_GAME_RESULT)
+        let emptyArray: [PlayerData] = []
+        //DataStore.shared.gameResultArray
+        storedResults = emptyArray
+        defaults.set(try? PropertyListEncoder().encode(emptyArray), forKey: KEY_GAME_RESULT)
+    }
 }

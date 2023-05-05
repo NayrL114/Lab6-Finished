@@ -59,6 +59,10 @@ class GameViewController: UIViewController {
         
         DataStore.shared.streakCounter = 0
         DataStore.shared.previousColour = Bubble.BubbleColour.White
+        DataStore.shared.storedBubbles = []
+        
+        totalBubbleNumbers = 0
+        bubbleID = 0
         
         //startGame()
         countDown()
@@ -86,10 +90,12 @@ class GameViewController: UIViewController {
             self.time = self.time - 1
             self.playerTimeLabel.text = String(self.time)
             
+            print("Before Removing, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
             self.removeRandomBubbles()
-            //print("Before, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
+            print("After Removing, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
             self.generateBubble()
-            //print("aFTER, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
+            print("After Generating, \(self.totalBubbleNumbers)  \(DataStore.shared.storedBubbles.count)  \(self.maxBubbleNumbers)")
+            print("---")
             
             if self.time == -1 {
                 
@@ -152,6 +158,8 @@ class GameViewController: UIViewController {
             return
         }
         
+        print("There should be \(DataStore.shared.storedBubbles.count) bubbles present in the screen")
+        
         let generateNumberThisTime: Int = Int.random(in: 1...maxBubbleNumbers-totalBubbleNumbers)
         for _ in (1...generateNumberThisTime){
             // generate a new bubble object here, assign colour and id, place in view
@@ -206,15 +214,19 @@ class GameViewController: UIViewController {
     }
     
     func removeRandomBubbles() { // remove random number of bubbles every second
-        guard DataStore.shared.storedBubbles.count > 1 else {
+        guard DataStore.shared.storedBubbles.count > 0 else {
             return
         }
         
+        print(" ------ ")
+        print("There should be \(DataStore.shared.storedBubbles.count) bubbles present in the screen")
+        
         let totalRemoveNumber = Int.random(in: 1...DataStore.shared.storedBubbles.count)
+        print("lets remove \(totalRemoveNumber) bubbles this time")
         var counter: Int = 0
         //print("This time we are suppose to remove \(totalRemoveNumber) bubbles")
         while(counter < totalRemoveNumber){
-            
+            print("counter is \(counter)")
             //print("length of storedBubble array is \(DataStore.shared.storedBubbles.count)")
             let removePosition = Int.random(in: 0...DataStore.shared.storedBubbles.count - 1)
             DataStore.shared.storedBubbles[removePosition].removeBubble()
